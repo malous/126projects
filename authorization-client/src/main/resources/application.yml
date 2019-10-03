@@ -1,0 +1,17 @@
+security:
+  oauth2:
+    client:
+      client-id: net_lab
+      client-secret: secret
+      user-authorization-uri: http://localhost:2000/oauth/authorize
+      access-token-uri: http://localhost:2000/oauth/token
+#      grant-type: password
+    resource:
+      id: web
+      jwt:
+#        key-uri: http://localhost:2000/oauth/token_key
+        key-value: 123
+      user-info-uri: http://localhost:2000/user/me
+
+server:
+  port: 8090

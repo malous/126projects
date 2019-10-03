@@ -1,0 +1,24 @@
+GET http://localhost:8001/user/me
+
+<> 2019-09-24T105856.401.json
+
+###
+
+GET http://localhost:8001/captcha
+
+<> 2019-09-24T100208.401.json
+
+###
+
+GET http://localhost:8001/oauth/token
+
+<> 2019-09-23T072523.401.json
+
+###
+
+GET http://localhost:8001/oauth/token
+
+<> 2019-09-23T072150.401.json
+
+###
+
