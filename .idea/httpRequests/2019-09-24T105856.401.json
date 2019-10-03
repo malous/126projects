@@ -1,4 +1,0 @@
-{
-  "error": "unauthorized",
-  "error_description": "An Authentication object was not found in the SecurityContext"
-}

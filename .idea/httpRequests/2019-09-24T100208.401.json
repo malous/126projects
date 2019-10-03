@@ -1,7 +1,0 @@
-{
-  "timestamp": "2019-09-24T02:02:08.462+0000",
-  "status": 401,
-  "error": "Unauthorized",
-  "message": "Unauthorized",
-  "path": "/captcha"
-}
