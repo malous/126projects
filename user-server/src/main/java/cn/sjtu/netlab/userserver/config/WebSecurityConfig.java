@@ -35,15 +35,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .authorizeRequests()
 //                // 跨域预检请求
 //                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-//                // 首页和登录页
-//                .antMatchers("/").permitAll()
-//                .antMatchers("/login").permitAll()
-//                .antMatchers("captcha**").permitAll()
-//                .antMatchers("/logout").permitAll()
+//                // oauth授权放行
+//                .antMatchers("/oauth/**").permitAll()
+//                // 自定义验证码路径
+//                .antMatchers("/captcha").permitAll()
+//                .and().authorizeRequests().anyRequest().authenticated()
+//                // 自定义登录页和登录请求路径
+//                .and().formLogin().loginPage("/loginS.html").loginProcessingUrl("/loginS").permitAll()
 //                // 登出
-//                .and().logout().logoutSuccessHandler(new LabLogoutHandler())
-//                // 其他请求均需要认证
-//                .and().authorizeRequests().anyRequest().authenticated();
+//                .and().logout().logoutSuccessHandler(new LabLogoutHandler());
+
     }
 
     @Override

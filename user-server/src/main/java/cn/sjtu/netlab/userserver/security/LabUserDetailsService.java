@@ -1,9 +1,8 @@
 package cn.sjtu.netlab.userserver.security;
 
 import cn.sjtu.netlab.userserver.mapper.LabRoleMapper;
-import cn.sjtu.netlab.userserver.mapper.LabUserMapper;
-import cn.sjtu.netlab.userserver.model.LabRole;
 import cn.sjtu.netlab.userserver.model.LabUser;
+import cn.sjtu.netlab.userserver.service.LabUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,15 +18,14 @@ import java.util.Set;
 @Service("detail")
 public class LabUserDetailsService implements UserDetailsService {
     @Autowired
-    private LabUserMapper labUserMapper;
+    private LabUserService userService;
     @Autowired
-    private LabRoleMapper labRoleMapper;
+    private LabRoleMapper roleMapper;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        LabUser user = labUserMapper.findByUsername(s);
-        System.out.println(user);
-        List<String> roleList = labRoleMapper.getRoleByUserId(user.getId());
+        LabUser user = userService.findByUsername(s);
+        List<String> roleList = roleMapper.getRoleByUserId(user.getId());
         // 由于UserDetails中为nonLock等，因此此处对于LockFlag，DelFlag取非
         Set authorities = generateAuthorities(roleList);
         System.out.println(authorities);

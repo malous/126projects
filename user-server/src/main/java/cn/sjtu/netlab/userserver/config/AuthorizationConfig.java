@@ -24,7 +24,6 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableAuthorizationServer
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
@@ -56,8 +55,8 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
                 .secret(new BCryptPasswordEncoder().encode("secret"))
                 .authorizedGrantTypes("authorization_code", "password", "refresh_token")
                 .scopes("web")
-                .redirectUris("https://www.baidu.com")
-                .autoApprove("*");
+                .redirectUris("https://www.baidu.com");
+//                .autoApprove("*");
     }
 
     @Override

@@ -1,18 +1,21 @@
 package cn.sjtu.netlab.userserver.service;
 
 import cn.sjtu.netlab.userserver.model.LabUser;
-import cn.sjtu.netlab.userserver.vo.PageSelect;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.math.BigInteger;
 
-public interface LabUserService {
-    LabUser findByUserName (String username);
+/**
+ * <p>
+ *  用户管理服务接口
+ * </p>
+ *
+ * @author malous
+ * @since 2019-10-04
+ */
+public interface LabUserService extends IService<LabUser> {
+    LabUser findByUsername(String username);
 
-    PageSelect<LabUser> findUser(String name, int pageNum, int pageSize);
-
-    int insert(LabUser user);
-
-    int updateUser (LabUser user);
-
-    int deleteUser (BigInteger id);
+    IPage<LabUser> findUser (String name, int pageNum, int pageSize);
 }

@@ -8,6 +8,14 @@ import org.apache.ibatis.annotations.Select;
 import java.math.BigInteger;
 import java.util.List;
 
+/**
+ * <p>
+ *  Mapper 接口
+ * </p>
+ *
+ * @author malous
+ * @since 2019-10-04
+ */
 public interface LabRoleMapper extends BaseMapper<LabRole> {
     /**
      * 根据传入的用户id获取其对应角色
@@ -16,7 +24,7 @@ public interface LabRoleMapper extends BaseMapper<LabRole> {
      */
     @Select({
             "select",
-            "concat(r.name, ' ', r.level) from lab_user u, lab_role r, lab_user_role ur",
+            "r.name from lab_user u, lab_role r, lab_user_role ur",
             "where u.id=#{userId, jdbcType=BIGINT}",
             "and u.id=ur.user_id and r.id=ur.role_id"
     })

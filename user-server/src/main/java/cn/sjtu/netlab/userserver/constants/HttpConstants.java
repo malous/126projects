@@ -4,8 +4,8 @@ package cn.sjtu.netlab.userserver.constants;
  * 定义了返回结果中封装的code和msg信息
  */
 public class HttpConstants {
-    public static final int STATUS_OK = 200;
-    public static final String STATUS_OK_MSG = "操作成功";
+    public static final int SUCCESS = 200;
+    public static final String SUCCESS_MSG = "操作成功";
 
     public static final int STATUS_ERROR_404 = 404;
     public static final String STATUS_ERROR_404_MSG = "未找到相应数据，请确认输入正确";
@@ -99,5 +99,9 @@ public class HttpConstants {
 
     public static final int STATUS_ERROR_440 = 414;
     public static final String STATUS_ERROR_440_MSG = "";
+
+    public static final int ERR_ADD = 421;
+
+    public static final int ERR_UPDATE = 422;
 
 }

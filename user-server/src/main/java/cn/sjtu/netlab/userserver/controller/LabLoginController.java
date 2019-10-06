@@ -4,7 +4,7 @@ import cn.sjtu.netlab.userserver.constants.HttpConstants;
 import cn.sjtu.netlab.userserver.model.LabUser;
 import cn.sjtu.netlab.userserver.service.LabUserService;
 import cn.sjtu.netlab.userserver.vo.LoginBean;
-import cn.sjtu.netlab.userserver.vo.LabResponse;
+import cn.sjtu.netlab.userserver.vo.BaseResponse;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +27,6 @@ public class LabLoginController {
     private Producer producer;
     @Autowired
     private LabUserService labUserService;
-    @Autowired
-    private JwtAccessTokenConverter token;
 
     /**
      * 生成验证码图片
@@ -52,33 +50,33 @@ public class LabLoginController {
     }
 
     @PostMapping("/loginS")
-    public LabResponse<?> login (@RequestBody LoginBean loginBean, HttpServletRequest request) {
+    public BaseResponse login (@RequestBody LoginBean loginBean, HttpServletRequest request) {
         String username = loginBean.getUsername();
         String password = loginBean.getPassword();
         String loginCaptcha = loginBean.getCaptcha();
         Object captcha = request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
         if (captcha == null) {
-            return LabResponse.error(HttpConstants.STATUS_ERROR_411, HttpConstants.STATUS_ERROR_411_MSG);
+            return BaseResponse.error(HttpConstants.STATUS_ERROR_411, HttpConstants.STATUS_ERROR_411_MSG);
         }
         if (!captcha.equals(loginCaptcha)) {
-            return LabResponse.error(HttpConstants.STATUS_ERROR_412, HttpConstants.STATUS_ERROR_412_MSG);
+            return BaseResponse.error(HttpConstants.STATUS_ERROR_412, HttpConstants.STATUS_ERROR_412_MSG);
         }
 
-        LabUser user = labUserService.findByUserName(username);
+        LabUser user = labUserService.findByUsername(username);
 
         if (user == null || user.getDelFlag()) {
-            return LabResponse.error(HttpConstants.STATUS_ERROR_413, HttpConstants.STATUS_ERROR_413_MSG);
+            return BaseResponse.error(HttpConstants.STATUS_ERROR_413, HttpConstants.STATUS_ERROR_413_MSG);
         }
         if (!user.getPassword().equals(password)) {
-            return LabResponse.error(HttpConstants.STATUS_ERROR_414, HttpConstants.STATUS_ERROR_414_MSG);
+            return BaseResponse.error(HttpConstants.STATUS_ERROR_414, HttpConstants.STATUS_ERROR_414_MSG);
         }
 
         if (user.getLockFlag()) {
-            return LabResponse.error(HttpConstants.STATUS_ERROR_415, HttpConstants.STATUS_ERROR_415_MSG);
+            return BaseResponse.error(HttpConstants.STATUS_ERROR_415, HttpConstants.STATUS_ERROR_415_MSG);
         }
 
 //        token.extractAccessToken("access_token", )
-        return LabResponse.ok();
+        return BaseResponse.ok();
     }
 
 
