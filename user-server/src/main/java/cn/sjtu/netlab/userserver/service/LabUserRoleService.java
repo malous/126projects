@@ -18,4 +18,5 @@ import java.util.List;
 public interface LabUserRoleService extends IService<LabUserRole> {
     List<UserRoleInfo> findUser(BigInteger roleId);
 
+    void ignoreInsert(List<LabUserRole> userRoleList);
 }

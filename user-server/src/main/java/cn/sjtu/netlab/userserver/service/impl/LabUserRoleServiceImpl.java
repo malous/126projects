@@ -24,4 +24,9 @@ public class LabUserRoleServiceImpl extends ServiceImpl<LabUserRoleMapper, LabUs
     public List<UserRoleInfo> findUser(BigInteger roleId) {
         return this.getBaseMapper().findUser(roleId);
     }
+
+    @Override
+    public void ignoreInsert(List<LabUserRole> userRoleList) {
+        this.getBaseMapper().ignoreInsert(userRoleList);
+    }
 }

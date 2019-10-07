@@ -3,6 +3,7 @@ package cn.sjtu.netlab.userserver.mapper;
 import cn.sjtu.netlab.userserver.model.LabUserRole;
 import cn.sjtu.netlab.userserver.model.UserRoleInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -26,4 +27,6 @@ public interface LabUserRoleMapper extends BaseMapper<LabUserRole> {
             "and ur.user_id=u.id"
     })
     List<UserRoleInfo> findUser (@Param("roleId") BigInteger roleId);
+
+    void ignoreInsert(List<LabUserRole> userRoleList);
 }

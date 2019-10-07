@@ -25,6 +25,7 @@ import java.util.List;
  * @author malous
  * @since 2019-10-04
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/dept")
 public class LabDeptController {
@@ -32,9 +33,7 @@ public class LabDeptController {
     private LabDeptService deptService;
     
     @GetMapping("/find")
-    public BaseResponse findDept (HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        Cookie[] cookies = request.getCookies();
+    public BaseResponse findDept () {
         List<LabDeptTree> result = deptService.findDept();
         return new ObjectResponse<>(result);
     }

@@ -24,6 +24,7 @@ import java.util.List;
  * @author malous
  * @since 2019-10-04
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/assign")
 public class LabUserRoleController {
@@ -38,13 +39,12 @@ public class LabUserRoleController {
 
     @PostMapping("/insert")
     public BaseResponse addUserRole (@RequestBody List<LabUserRole> userRoleList) {
-        StringBuilder msgBuilder = new StringBuilder();
         try {
-            userRoleService.saveBatch(userRoleList);
+            userRoleService.ignoreInsert(userRoleList);
         } catch (DuplicateKeyException e) {
-            msgBuilder.append(e.getMessage());
+            e.printStackTrace();
         }
-        return new BaseResponse().setMsg(msgBuilder.toString());
+        return new BaseResponse();
     }
 
     @PutMapping("/update")

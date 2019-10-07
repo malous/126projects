@@ -6,6 +6,7 @@ import cn.sjtu.netlab.userserver.model.LabRole;
 import cn.sjtu.netlab.userserver.service.LabRoleService;
 import cn.sjtu.netlab.userserver.vo.BaseResponse;
 import cn.sjtu.netlab.userserver.vo.ListResponse;
+import cn.sjtu.netlab.userserver.vo.ObjectResponse;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -21,6 +22,7 @@ import java.math.BigInteger;
  * @author malous
  * @since 2019-10-04
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/role")
 public class LabRoleController {
@@ -28,24 +30,22 @@ public class LabRoleController {
     private LabRoleService roleService;
 
     @GetMapping("/find")
-    public BaseResponse findUser (@RequestParam(value = "name", required = false) String name,
-                                  @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
-        IPage<LabRole> page = roleService.findRole(name, pageNum, pageSize);
-        return new ListResponse<>(page.getTotal(), page.getRecords());
+    public BaseResponse findRole () {
+        return new ObjectResponse<>(roleService.list());
     }
 
     @PostMapping("/insert")
-    public BaseResponse addUser (@RequestBody LabRole role) {
+    public BaseResponse addRole (@RequestBody LabRole role) {
         try {
             roleService.save(role);
         } catch (DuplicateKeyException e) {
             return new BaseResponse(HttpConstants.ERR_ADD, "角色名称重复");
         }
-        return new BaseResponse();
+        return new ObjectResponse<>(role.getId());
     }
 
     @PutMapping("/update")
-    public BaseResponse updateUser (@RequestBody LabRole role) {
+    public BaseResponse updateRole (@RequestBody LabRole role) {
         boolean result = roleService.updateById(role);
         if (result) {
             return new BaseResponse();
@@ -55,7 +55,7 @@ public class LabRoleController {
     }
 
     @DeleteMapping("/delete")
-    public BaseResponse deleteUser (@RequestParam("id") BigInteger id) {
+    public BaseResponse deleteRole (@RequestParam("id") BigInteger id) {
         roleService.removeById(id);
         return new BaseResponse();
     }

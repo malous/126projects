@@ -8,6 +8,7 @@ import cn.sjtu.netlab.userserver.service.LabUserRoleService;
 import cn.sjtu.netlab.userserver.service.LabUserService;
 import cn.sjtu.netlab.userserver.vo.BaseResponse;
 import cn.sjtu.netlab.userserver.vo.ListResponse;
+import cn.sjtu.netlab.userserver.vo.ObjectResponse;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,14 +29,12 @@ import java.util.List;
  * @author malous
  * @since 2019-10-04
  */
-@RestController
 @CrossOrigin
+@RestController
 @RequestMapping("/user")
 public class LabUserController {
     @Autowired
     private LabUserService userService;
-    @Autowired
-    private LabUserRoleService userRoleService;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -58,7 +57,7 @@ public class LabUserController {
         user.setPassword(password);
         boolean result = userService.save(user);
         if (result) {
-            return new BaseResponse();
+            return new ObjectResponse<>(user.getId());
         } else {
             return new BaseResponse(HttpConstants.ERR_ADD, "插入用户数据失败，请检查是否填写全部必填数据");
         }
